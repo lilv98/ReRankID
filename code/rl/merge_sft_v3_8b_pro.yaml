@@ -1,0 +1,13 @@
+### Merge the dev-selected 8B Pro SFT-v3 LoRA into its Pro base.
+### Run in sid-lf from the repository root.
+model_name_or_path: OpenOneRec/OneRec-8B-Pro
+model_revision: 17b594d1e6b322752d939a769a07860f7e4a0261
+adapter_name_or_path: saves/onerec-8b-pro/lora/hp_e128_lr5e5/checkpoint-88
+template: qwen3
+trust_remote_code: true
+finetuning_type: lora
+
+export_dir: saves/onerec-8b-pro/merged_sft_v3_e128_lr5e5
+export_size: 5
+export_device: cpu
+export_legacy_format: false

@@ -1,0 +1,3 @@
+# PyPI source release used when no ABI-matched prebuilt wheel is supplied.
+# --no-deps keeps the already-pinned torch stack intact.
+flash-attn==2.8.3 --hash=sha256:1e71dd64a9e0280e0447b8a0c2541bad4bf6ac65bdeaa2f90e51a9e57de0370d

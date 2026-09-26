@@ -1,0 +1,11 @@
+# sid-lf on the local 2xA100 / driver-535 machine.
+# Install torch CUDA 12.8 explicitly before LLaMA-Factory so pip cannot select cu130.
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.9.1+cu128
+torchvision==0.24.1+cu128
+torchaudio==2.9.1+cu128
+llamafactory==0.9.5
+transformers==5.6.0
+wandb==0.28.0
+pandas==2.3.3
+pyarrow==25.0.0

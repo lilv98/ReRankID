@@ -1,0 +1,49 @@
+### Final SFT v3 8B Pro HPO winner on the complete 12k dataset.
+### Exact executed 4-GPU batch arithmetic: 4 per device x 4 GPUs x 8
+### accumulation steps = effective batch 128. LLaMA-Factory's lora_target=all
+### corresponds to all linear layers in the recorded artifact metadata.
+### The configured horizon remains 3 epochs so all dev-selection candidates are
+### reproducible. Checkpoint 88 (epoch 1.01), not the final checkpoint, is the
+### frozen dev-selected model used by downstream 8B Pro experiments.
+###   EFF_BATCH=128 PER_DEV=4 bash code/sft/train.sh code/sft/configs/lora_sft_8b_v3.yaml
+model_name_or_path: OpenOneRec/OneRec-8B-Pro
+model_revision: 17b594d1e6b322752d939a769a07860f7e4a0261
+trust_remote_code: true
+
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_target: all
+
+dataset: sft_train
+eval_dataset: sft_dev
+dataset_dir: data/sft_v3
+template: qwen3
+cutoff_len: 4096
+preprocessing_num_workers: 8
+
+output_dir: saves/onerec-8b-pro/lora/hp_e128_lr5e5
+logging_steps: 5
+# 0.1667 of the full 3-epoch horizon yields checkpoints near every half epoch;
+# checkpoint 88 is recorded as epoch 1.01.
+save_strategy: steps
+save_steps: 0.1667
+plot_loss: true
+
+per_device_train_batch_size: 4
+gradient_accumulation_steps: 8
+learning_rate: 5.0e-5
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.08
+weight_decay: 0.0
+bf16: true
+
+per_device_eval_batch_size: 4
+eval_strategy: steps
+eval_steps: 0.1667
+
+report_to: wandb
+run_name: sft8b_hpsearch_e128_lr5e5_best

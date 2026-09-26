@@ -1,0 +1,397 @@
+{
+  "schema_version": 1,
+  "frozen_at_utc": "2026-07-28T01:47:00Z",
+  "scope": {
+    "description": "Final adopted ReRankID benchmark and post-training recipes",
+    "models": [
+      "1.7b-pro",
+      "8b-pro"
+    ],
+    "sid_only_post_training": true,
+    "only_pro_models": true,
+    "excluded_from_final_scope": [
+      "non-Pro checkpoints",
+      "historical SFT variants",
+      "pilot training arms",
+      "RFT 12k"
+    ]
+  },
+  "repository": {
+    "paper_submodule_commit": "2cfbcf1ed5319e900d5c6865ae8e032901b095a3"
+  },
+  "wandb": {
+    "project": "anonymous/ReRankID",
+    "artifacts": {
+      "benchmark": {
+        "qualified_name": "anonymous/ReRankID/data:v0",
+        "digest": "2600cd06d5dd62009cf057c37676de91",
+        "path": "benchmark/",
+        "manifest_sha256": "ba253ad3e0fd3e17b0c5d647460e99d897a49a62857e9f3432eacdf2def8a7c5"
+      },
+      "teacher_annotations": {
+        "qualified_name": "anonymous/ReRankID/data:v0",
+        "digest": "2600cd06d5dd62009cf057c37676de91",
+        "path": "sft/",
+        "prompt_sha256": "a22875c0b25e079f8b0720f67bcb5ca9c101b58a64646878547249dbdbd41c05",
+        "teacher": "Gemini-3.6-Flash"
+      },
+      "sft_dataset": {
+        "qualified_name": "anonymous/ReRankID/data:v0",
+        "digest": "2600cd06d5dd62009cf057c37676de91",
+        "path": "sft/",
+        "train_sha256": "bd123eae93ec7f055ccf1dd21dc7ff42072748b3d7f0b18a610bd149c0624cf7",
+        "dev_sha256": "6249e6e7d5222174fc0f4407c8214633db436134fc274f6a1903d9f8ca283b33"
+      },
+      "rlvr_inputs": {
+        "qualified_name": "anonymous/ReRankID/data:v0",
+        "digest": "2600cd06d5dd62009cf057c37676de91",
+        "path": "rlvr/",
+        "train_sha256": "8c6c6c58b079f765b400b7efa890a76f52cb33114a6bff1b0bd014846e9b38ad",
+        "validation_sha256": "8e1a781c05edf9b898ef777cebb0b4a1c2713b0fb28f94dbcb0bfd1996cfd96d",
+        "benchmark_sha256": "f0beaef9bca6b6512b8f854e801e44e50ccd39cf14685eee4fb7974b87c8ca89"
+      },
+      "sft_1_7b_adapter": {
+        "qualified_name": "anonymous/ReRankID/checkpoints:v0",
+        "digest": "9ef3e43fd07855a615faaf739dadd012",
+        "path": "sft/1.7b-pro/",
+        "adapter_sha256": "b248d6f9bfefad88de9f0cef0531f86392e9f178661e4ebf716d596a9b5a242c"
+      },
+      "sft_8b_adapter": {
+        "qualified_name": "anonymous/ReRankID/checkpoints:v0",
+        "digest": "9ef3e43fd07855a615faaf739dadd012",
+        "path": "sft/8b-pro/",
+        "adapter_sha256": "d8a40d9f09d2c6a4246ef0a0709de465316145cdd6c4afd1136608cc669b63b9"
+      },
+      "sft_8b_results": {
+        "qualified_name": "anonymous/ReRankID/results:v0",
+        "digest": "4c036c0b92dfacae236d9ddb79723cb5",
+        "path": "sft/8b-pro/"
+      },
+      "gemini_rationale_sweep": {
+        "qualified_name": "anonymous/ReRankID/results:v0",
+        "digest": "4c036c0b92dfacae236d9ddb79723cb5",
+        "path": "benchmark/llm/gemini-3.6-flash/"
+      },
+      "rlvr_8b_primary_results": {
+        "qualified_name": "anonymous/ReRankID/results:v0",
+        "digest": "4c036c0b92dfacae236d9ddb79723cb5",
+        "path": "rlvr/ndcg5/8b-pro/"
+      },
+      "rlvr_1_7b_hit1_results": {
+        "qualified_name": "anonymous/ReRankID/results:v0",
+        "digest": "4c036c0b92dfacae236d9ddb79723cb5",
+        "path": "rlvr/hit1/1.7b-pro/"
+      },
+      "rlvr_8b_hit1_results": {
+        "qualified_name": "anonymous/ReRankID/results:v0",
+        "digest": "4c036c0b92dfacae236d9ddb79723cb5",
+        "path": "rlvr/hit1/8b-pro/"
+      }
+    }
+  },
+  "base_models": {
+    "1.7b-pro": {
+      "model_id": "OpenOneRec/OneRec-1.7B-pro",
+      "revision": "5dc1b097ab8194f48f14730e5400a276a22f4ca1",
+      "config_sha256": "43b8f3bd16d42450a441ba040bb20c0acf5e889f793d87ea4d3213d62572b94f",
+      "weight_sha256": "5e1711ee090fb25c11abb6b0467f5c95de8170992b4b21b72b2091fa4e8a0e9d"
+    },
+    "8b-pro": {
+      "model_id": "OpenOneRec/OneRec-8B-Pro",
+      "revision": "17b594d1e6b322752d939a769a07860f7e4a0261",
+      "config_sha256": "7cfca63823e48a9a61cb457bf40bf30263704f7e0dfa4472a626008a38728a30",
+      "weight_sha256": "0249cd2ec9af8b70441a9ffbfa7b5ec157a59dd55f950bf0d0d3d1009e007352"
+    }
+  },
+  "evaluation_protocol": {
+    "selection_split": "dev",
+    "selection_users": 400,
+    "selection_metric": "NDCG@5",
+    "test_split": "test",
+    "test_users": 400,
+    "test_policy": "one complete sweep after dev selection",
+    "anchor": {
+      "history_length": 64,
+      "candidate_count": 30,
+      "shuffle_seed": 0
+    },
+    "history_sweep": [
+      0,
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "candidate_sweep": [
+      10,
+      20,
+      30,
+      50,
+      100
+    ]
+  },
+  "recipes": {
+    "sft": {
+      "runbook": "code/sft/V3_RUNBOOK.md",
+      "annotation_target_rows": 12000,
+      "student_prompt_view": "sid",
+      "teacher_annotation_view": "caption",
+      "teacher_verified_positive_visible": true,
+      "arms": {
+        "1.7b-pro": {
+          "status": "complete",
+          "config": "code/sft/configs/lora_sft_1.7b_v3.yaml",
+          "wandb_run_ids": [
+            "s6mupptm"
+          ],
+          "effective_batch_size": 32,
+          "learning_rate": 0.0001,
+          "configured_epochs": 3.0,
+          "selected_checkpoint": 1035,
+          "selected_epoch": 3.0,
+          "adapter_artifact_key": "sft_1_7b_adapter",
+          "dev_anchor_ndcg5": 0.2197,
+          "test_anchor_ndcg5": 0.225,
+          "dev_evidence_sha256": "57435030622e6d4679fdf2bf690650ddd979ea54286f0e7b281fd554e9cf5db4",
+          "test_evidence_sha256": "ec3fefc4ecd29832233ba6482ba9fbb7b67345bc61f218b61c6296915959d872"
+        },
+        "8b-pro": {
+          "status": "complete",
+          "config": "code/sft/configs/lora_sft_8b_v3.yaml",
+          "wandb_run_ids": [
+            "ndklgo13",
+            "p8iznkhn"
+          ],
+          "effective_batch_size": 128,
+          "learning_rate": 0.00005,
+          "configured_epochs": 3.0,
+          "selected_checkpoint": 88,
+          "selected_epoch": 1.01,
+          "adapter_artifact_key": "sft_8b_adapter",
+          "dev_anchor_ndcg5": 0.2379,
+          "test_anchor_ndcg5": 0.2365,
+          "dev_evidence_sha256": "0c00af2eaaaee139211f51f309a5eab03f863a82e7ce486b68f7b0baa2f4b3c1",
+          "test_evidence_sha256": "4c01105d2934306e2fb6712cefc8799b9dd97bfa3217cdbf98fef674e366de37"
+        }
+      }
+    },
+    "rft": {
+      "runbook": "code/rft/RUNBOOK.md",
+      "rollout_prompt_budget": 6000,
+      "prompt_view": "sid",
+      "samples_per_prompt": 8,
+      "arms": {
+        "1.7b-pro": {
+          "status": "complete",
+          "config": "code/rft/configs/lora_sft_1.7b_rft_v1_6k.yaml",
+          "wandb_run_ids": [
+            "1ktamrcz"
+          ],
+          "selected_checkpoint": 62,
+          "retained_training_examples": 1940,
+          "selected_adapter_sha256": "ffd063dd07341c621b8840d9716a571b2c1e0ffdf9781f6a27357d2fc7f5e79c",
+          "dev_anchor_ndcg5": 0.2169,
+          "test_anchor_ndcg5": 0.2226,
+          "dev_evidence_sha256": "4b77e7c5c0faf359d525b37ccfeac25696d5f6a6ca4973bab454ef3386e8fcf4",
+          "test_evidence_sha256": "f30658f7187d9244b1ac413ffe16add527ac3d94677b427fd9a3d270adc1ceb2"
+        },
+        "8b-pro": {
+          "status": "complete",
+          "config": "code/rft/configs/lora_sft_8b_pro_rft_v1_6k.yaml",
+          "wandb_run_ids": [
+            "sqmgy5g6"
+          ],
+          "selected_checkpoint": 90,
+          "retained_training_examples": 1912,
+          "selected_adapter_sha256": "3b1a74b89702b5d77d8d0c67fff3ae0b9395370c5b4fe092a2b010f2ac3cbd40",
+          "dev_anchor_ndcg5": 0.2536,
+          "test_anchor_ndcg5": 0.2107,
+          "selection_evidence_sha256": "4282a5e59b33ac1a1e22953ac2d1d8aba82773726fd3a1bdb290bd1d8f559b66",
+          "test_evidence_sha256": "9049fcbcf21bbd6705b07e99c2b96e1743c26df9bc53a71e91cf4998877506f8"
+        }
+      }
+    },
+    "opd": {
+      "runbook": "code/opd/RUNBOOK.md",
+      "trajectory_prompt_budget": 6000,
+      "prompt_view": "sid",
+      "student_initializer": "matched-scale Pro Base",
+      "teacher": "frozen matched-scale final SFT",
+      "objective": "renormalized top-32 forward KL on student trajectories",
+      "uses_task_reward": false,
+      "uses_caption": false,
+      "arms": {
+        "1.7b-pro": {
+          "status": "complete",
+          "wandb_run_ids": [
+            "opdv3_571167a9fd9fab50f4f2"
+          ],
+          "selected_step": 75,
+          "selected_adapter_sha256": "b91662a05d173fd5827e9ffc9c893a8aa73548ec3e40e59c8ca224d6016c4f8d",
+          "dev_anchor_ndcg5": 0.2109,
+          "test_anchor_ndcg5": 0.1954,
+          "selection_evidence_sha256": "1868dd7cb5cee8fe3d27a6070ff4a9f442137f79c339720e123c2c52c0803b4a",
+          "test_evidence_sha256": "610d225e92adda9be8e7e453a5451d8e15b81bbc4949b6c041dcad50d64a48db"
+        },
+        "8b-pro": {
+          "status": "complete",
+          "wandb_run_ids": [
+            "opdv3_69d773d6f04982016441"
+          ],
+          "selected_step": 50,
+          "selected_adapter_sha256": "811d4ad32851d874f12b85c5f8bbf8dbdd0b971bc97e706d88978b86c3703aea",
+          "dev_anchor_ndcg5": 0.26619360082919163,
+          "test_anchor_ndcg5": 0.21,
+          "selection_evidence_sha256": "8de8f0eb6822f51d247271bc204dd2d27dd49d9f053e755f04ec4b104bbeabd5",
+          "test_evidence_sha256": "35877d0b01bcc90df3d352854dd8b888406b1e00d10172e3ce89f74b9c89e2ad",
+          "completion_note": "Training process ended after recoverable outputs were written; dev selection and the full test sweep completed."
+        }
+      }
+    },
+    "rlvr": {
+      "runbook": "code/rl/RUNBOOK.md",
+      "training_prompt_budget": 6000,
+      "prompt_view": "sid",
+      "rollouts_per_prompt": 8,
+      "registered_variants": [
+        "sft_ndcg5",
+        "sft_hit1"
+      ],
+      "arms": {
+        "1.7b-pro_sft_ndcg5": {
+          "status": "complete",
+          "initializer": "sft",
+          "reward": "ndcg5",
+          "wandb_run_ids": [
+            "s7twzu15"
+          ],
+          "selected_step": 60,
+          "dev_anchor_ndcg5": 0.2331,
+          "test_anchor_ndcg5": 0.2305,
+          "dev_evidence_sha256": "4e1138aeb84b7dece1ca031c7d423c44fef354ff746e8082cf2b67154612d549",
+          "test_evidence_sha256": "bb8556fdf7233affcc95c2c15bc150f9898207f644a71962b6b15d3df2b3164f",
+          "executed_profile": {
+            "schema_version": 1,
+            "policy": "1.7b-pro",
+            "initializer": "sft",
+            "reward": "ndcg5",
+            "results_rel": "results/rlvr-1.7b-pro-v1-6k",
+            "dev_subdir": "dev_select",
+            "test_subdir": "",
+            "dev_tag": "rlvr_v1_dev_select",
+            "test_tag": "rlvr_v1_test",
+            "model_meta": "saves/onerec-1.7b-pro/merged_sft_v3_12k_lr1e4",
+            "benchmark_meta": "/mnt/data/workspace/ReRankID/data/benchmark/bench.parquet",
+            "checkpoint_label_template": "step{step}",
+            "adapter_root_meta": "saves/onerec-1.7b-pro/rlvr_v1_6k_adapters",
+            "adapter_step_template": "step-{step:06d}",
+            "result_artifact_name": "rlvr-v1-1.7b-pro-6k-results",
+            "tree_sha256": "6763e6ca44790ea51cbd538f7e42d757fcc0e714abc933319e7f1005d497e15d"
+          }
+        },
+        "8b-pro_sft_ndcg5": {
+          "status": "complete",
+          "initializer": "sft",
+          "reward": "ndcg5",
+          "wandb_run_ids": [
+            "zb6eq3i5",
+            "femqabfv"
+          ],
+          "selected_step": 100,
+          "results_artifact_key": "rlvr_8b_primary_results",
+          "dev_anchor_ndcg5": 0.3013,
+          "test_anchor_ndcg5": 0.2767,
+          "dev_evidence_sha256": "ea42762f0cd3a6e539494c9cd2d5cdb058482e5a4760044fcea4431ef551900e",
+          "test_evidence_sha256": "a8576cbf413cdcf639e80b73a62ca0c936f5e8c08c7fee5f49980c84dc50556b",
+          "executed_profile": {
+            "schema_version": 1,
+            "policy": "8b-pro",
+            "initializer": "sft",
+            "reward": "ndcg5",
+            "results_rel": "results/rlvr-8b-pro-v2-e128-lr5e5-formal",
+            "dev_subdir": "dev_select",
+            "test_subdir": "test",
+            "dev_tag": "rlvr_v2_devselect",
+            "test_tag": "rlvr_v2_test",
+            "model_meta": "saves/onerec-8b-pro/merged_hp_e128_lr5e5_ep1",
+            "benchmark_meta": "/mnt/data/workspace/ReRankID/data/benchmark/bench.parquet",
+            "checkpoint_label_template": "rl_step{step}",
+            "adapter_root_meta": "saves/onerec-8b-pro/rlvr_v2_e128_lr5e5_adapters",
+            "adapter_step_template": "step-{step}",
+            "result_artifact_name": "rlvr-v2-8b-e128-lr5e5-formal-results",
+            "tree_sha256": "2f06c0167e86d7a69b5048a7bd56dbe2dba6aab7a0f3679f201df40ebed4301f"
+          }
+        },
+        "1.7b-pro_sft_hit1": {
+          "status": "complete",
+          "initializer": "sft",
+          "reward": "hit1",
+          "wandb_run_ids": [
+            "nllzldbi",
+            "zsysnt2h"
+          ],
+          "selected_step": 60,
+          "results_artifact_key": "rlvr_1_7b_hit1_results",
+          "dev_anchor_ndcg5": 0.2184,
+          "test_anchor_ndcg5": 0.2322,
+          "dev_evidence_sha256": "8d5f794383d32e78ebc7c53646250997e8c8b0b1594145d8575ad90fe8e9e704",
+          "test_evidence_sha256": "d2ece8d9e721efcd54122eb33d3477a482333029601fb707eb6c00802f4e5a9b",
+          "executed_profile": {
+            "schema_version": 1,
+            "policy": "1.7b-pro",
+            "initializer": "sft",
+            "reward": "hit1",
+            "results_rel": "results/rlvr-v2-1.7b-sft-top1",
+            "dev_subdir": "dev_select",
+            "test_subdir": "test",
+            "dev_tag": "A_sft_top1_devsel",
+            "test_tag": "A_sft_top1_test",
+            "model_meta": "/mnt/data/workspace/ReRankID/saves/onerec-1.7b-pro/merged_sft_v3_12k_lr1e4",
+            "benchmark_meta": "/mnt/data/workspace/ReRankID/data/benchmark/bench.parquet",
+            "checkpoint_label_template": "rl_step{step}",
+            "adapter_root_meta": "/mnt/data/workspace/ReRankID/saves/onerec-1.7b-pro/rlvr_v2_sft_top1_adapters",
+            "adapter_step_template": "step-{step}",
+            "result_artifact_name": "rlvr-v2-1.7b-sft-top1-results",
+            "tree_sha256": "f40f2b1f1e21c9e873f282e6c644a7d3098a5a0ca228e8503645875aeafa7eb1"
+          }
+        },
+        "8b-pro_sft_hit1": {
+          "status": "complete",
+          "initializer": "sft",
+          "reward": "hit1",
+          "wandb_run_ids": [
+            "11z18t97",
+            "e4s7xkph"
+          ],
+          "selected_step": 80,
+          "results_artifact_key": "rlvr_8b_hit1_results",
+          "dev_anchor_ndcg5": 0.2588,
+          "test_anchor_ndcg5": 0.2322,
+          "dev_evidence_sha256": "242cfb67501587aab065e8020cba1854f9d66f33f13c51a332fd3a0dfae15af0",
+          "test_evidence_sha256": "c551d0c3d2663ae7ba743172a844ddf74eefee1208881a27a40931648a4b147d",
+          "executed_profile": {
+            "schema_version": 1,
+            "policy": "8b-pro",
+            "initializer": "sft",
+            "reward": "hit1",
+            "results_rel": "results/rlvr-v2-8b-sft-top1",
+            "dev_subdir": "dev_select",
+            "test_subdir": "test",
+            "dev_tag": "A8_sft_top1_devsel",
+            "test_tag": "A8_sft_top1_test",
+            "model_meta": "/mnt/data/workspace/ReRankID/saves/onerec-8b-pro/merged_hp_e128_lr5e5_ep1",
+            "benchmark_meta": "/mnt/data/workspace/ReRankID/data/benchmark/bench.parquet",
+            "checkpoint_label_template": "rl_step{step}",
+            "adapter_root_meta": "/mnt/data/workspace/ReRankID/saves/onerec-8b-pro/rlvr_v2_sft_top1_adapters",
+            "adapter_step_template": "step-{step}",
+            "result_artifact_name": "rlvr-v2-8b-sft-top1-results",
+            "tree_sha256": "18e466a2a7d111ed0b5a3a27a5e5570aabbce812e3b6c8f216d81b53051a7817"
+          }
+        }
+      }
+    }
+  }
+}

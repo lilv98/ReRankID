@@ -1,0 +1,20 @@
+# sid-verl layer 3/3: verl 0.8.0 runtime deps not already provided by vLLM.
+# Layer 1 is the profile's sid-verl.txt; layer 2 installs verl --no-deps so its
+# stale optional vLLM range cannot replace the project-validated vLLM stack.
+#
+# verl 0.8 declares numpy<2, while both validated vLLM profiles resolve NumPy 2.
+# Keep the vLLM stack: rollout compatibility is experiment-critical, and this
+# is the one intentional warning reported by pip check.
+ray[default]==2.55.1
+tensorboard==2.21.0
+hydra-core==1.3.4
+omegaconf==2.3.1
+tensordict==0.10.0
+codetiming==1.4.0
+dill==0.4.1
+peft==0.19.1
+accelerate==1.14.0
+datasets==5.0.0
+torchdata==0.11.0
+pylatexenc==2.10
+pybind11==3.0.4

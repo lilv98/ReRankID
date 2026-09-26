@@ -1,0 +1,48 @@
+### Final SFT v3 1.7B Pro recipe: ordinary LoRA on the complete 12k dataset.
+### The run starts from the base model and uses effective batch 32, lr=1e-4,
+### cosine scheduling, warmup 0.08, and a configured horizon of 3 epochs.
+### Checkpoint 1035 (epoch 3) was selected on the 400-user dev anchor.
+### Launch from the repository root in sid-lf:
+###   EFF_BATCH=32 bash code/sft/train.sh code/sft/configs/lora_sft_1.7b_v3.yaml
+model_name_or_path: OpenOneRec/OneRec-1.7B-pro
+model_revision: 5dc1b097ab8194f48f14730e5400a276a22f4ca1
+trust_remote_code: true
+
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_target: all
+
+dataset: sft_train
+eval_dataset: sft_dev
+dataset_dir: data/sft_v3
+template: qwen3
+cutoff_len: 8192
+preprocessing_num_workers: 8
+
+output_dir: saves/onerec-1.7b-pro/lora/sft_v3_12k_lr1e4
+logging_steps: 5
+# Approximately half-epoch checkpoints make early overfitting observable.
+save_strategy: steps
+save_steps: 0.1667
+plot_loss: true
+
+# Executed 4-GPU arithmetic is 2 x 4 x 4 = 32. train.sh recomputes
+# accumulation when the visible GPU count differs.
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 4
+learning_rate: 1.0e-4
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.08
+weight_decay: 0.0
+bf16: true
+
+per_device_eval_batch_size: 4
+eval_strategy: steps
+eval_steps: 0.1667
+
+report_to: wandb
+run_name: sft_v3_1.7b_12k_lr1e4

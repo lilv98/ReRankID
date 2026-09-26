@@ -1,0 +1,11 @@
+# First layer of sid-verl on the local 2xA100 / driver-535 machine.
+# vLLM 0.19 selects the validated torch 2.10 + cu128 stack. setup_envs.sh then
+# installs verl --no-deps, the shared runtime extras, and the matching flash-attn wheel.
+vllm==0.19.1
+transformers==4.57.6
+ninja==1.13.0
+pandas==3.0.3
+pyarrow==25.0.0
+numpy==2.2.6
+requests==2.34.2
+wandb==0.28.0

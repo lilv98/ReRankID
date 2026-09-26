@@ -1,0 +1,10 @@
+# sid-lf on the cu130 4xA100 / driver>=580 host.
+# Pin torch so a rebuild cannot silently move to a newer CUDA ABI.
+torch==2.11.0
+torchvision==0.26.0
+torchaudio==2.11.0
+llamafactory==0.9.5
+transformers==5.6.0
+wandb==0.28.0
+pandas==2.3.3
+pyarrow==25.0.0
