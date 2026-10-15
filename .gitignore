@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+
+# Local data, outputs and model caches
+/data/
+/results/
+/saves/
+/models/
+/downloads/
+/figures/
+/outputs/
+/wandb/
+nohup.out
+
+# Credentials
+/api_keys.json
+
+.DS_Store

@@ -1,0 +1,15 @@
+# Copyright 2026 The ReRankID Authors
+# SPDX-License-Identifier: Apache-2.0
+
+# sid-verl layer 1/3, CUDA 13.0 profile (Python 3.12; default stack).
+# setup_envs.sh then installs verl --no-deps, sid-verl-extras.txt and flash-attn.
+# google-auth and anthropic are only needed for the optional Vertex AI backend.
+vllm==0.24.0
+transformers==5.6.0
+ninja==1.13.0
+pandas==3.0.3
+pyarrow==25.0.0
+numpy==2.2.6
+requests==2.34.2
+google-auth==2.56.0
+anthropic==0.116.0

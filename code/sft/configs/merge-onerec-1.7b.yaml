@@ -1,0 +1,19 @@
+# Copyright 2026 The ReRankID Authors
+# SPDX-License-Identifier: Apache-2.0
+
+### Merge the dev-selected 1.7B SFT adapter into its base: saves/onerec-1.7b/sft-merged is the
+### RLVR initializer and the OPD teacher. Adapters are not released; point adapter_name_or_path at
+### your own dev-selected checkpoint (the paper's is checkpoint-1035).
+###   llamafactory-cli export code/sft/configs/merge-onerec-1.7b.yaml
+###   python code/utils/model_config.py saves/onerec-1.7b/sft-merged
+model_name_or_path: OpenOneRec/OneRec-1.7B-pro
+model_revision: 5dc1b097ab8194f48f14730e5400a276a22f4ca1
+adapter_name_or_path: saves/onerec-1.7b/sft/checkpoint-1035
+template: qwen3
+trust_remote_code: true
+finetuning_type: lora
+
+export_dir: saves/onerec-1.7b/sft-merged
+export_size: 5
+export_device: cpu
+export_legacy_format: false

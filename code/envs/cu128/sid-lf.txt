@@ -1,0 +1,13 @@
+# Copyright 2026 The ReRankID Authors
+# SPDX-License-Identifier: Apache-2.0
+
+# sid-lf, CUDA 12.8 profile (Python 3.11).
+# Install torch CUDA 12.8 explicitly before LLaMA-Factory so pip cannot select cu130.
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.9.1+cu128
+torchvision==0.24.1+cu128
+torchaudio==2.9.1+cu128
+llamafactory==0.9.5
+transformers==5.6.0
+pandas==2.3.3
+pyarrow==25.0.0

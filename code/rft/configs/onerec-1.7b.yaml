@@ -1,0 +1,48 @@
+# Copyright 2026 The ReRankID Authors
+# SPDX-License-Identifier: Apache-2.0
+
+### RFT for onerec-1.7b (paper Sec. 5): continue the dev-selected SFT LoRA on its own
+### verifier-accepted rollouts from the 6k post-training subset (data/rft/onerec-1.7b). Point
+### adapter_name_or_path at your own SFT checkpoint (the paper's is checkpoint-1035); the paper
+### selects RFT checkpoint-62 by dev NDCG@5.
+###   bash code/sft/train.sh code/rft/configs/onerec-1.7b.yaml
+model_name_or_path: OpenOneRec/OneRec-1.7B-pro
+model_revision: 5dc1b097ab8194f48f14730e5400a276a22f4ca1
+adapter_name_or_path: saves/onerec-1.7b/sft/checkpoint-1035
+trust_remote_code: true
+
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_target: all
+
+dataset: rft_train
+eval_dataset: sft_dev
+dataset_dir: data/rft/onerec-1.7b
+template: qwen3
+cutoff_len: 8192
+preprocessing_num_workers: 8
+
+output_dir: saves/onerec-1.7b/rft
+logging_steps: 5
+save_strategy: steps
+save_steps: 0.25
+plot_loss: true
+
+# train.sh sets gradient_accumulation_steps from the GPU count (effective batch 32).
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 4
+learning_rate: 5.0e-5
+num_train_epochs: 2.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.03
+bf16: true
+
+per_device_eval_batch_size: 4
+eval_strategy: steps
+eval_steps: 0.25
+
+report_to: none
+run_name: onerec-1.7b-rft

@@ -1,0 +1,12 @@
+# Copyright 2026 The ReRankID Authors
+# SPDX-License-Identifier: Apache-2.0
+
+# sid-lf, CUDA 13.0 profile (Python 3.12).
+# torch is pinned so a rebuild cannot move to another CUDA ABI.
+torch==2.11.0
+torchvision==0.26.0
+torchaudio==2.11.0
+llamafactory==0.9.5
+transformers==5.6.0
+pandas==2.3.3
+pyarrow==25.0.0

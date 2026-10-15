@@ -1,0 +1,13 @@
+# Copyright 2026 The ReRankID Authors
+# SPDX-License-Identifier: Apache-2.0
+
+# sid-verl layer 1/3, CUDA 12.8 profile (Python 3.11; the OPD stack).
+# vLLM 0.19.1 brings torch 2.10 cu128. setup_envs.sh then installs verl --no-deps,
+# sid-verl-extras.txt and flash-attn.
+vllm==0.19.1
+transformers==4.57.6
+ninja==1.13.0
+pandas==3.0.3
+pyarrow==25.0.0
+numpy==2.2.6
+requests==2.34.2
